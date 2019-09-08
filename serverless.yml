@@ -97,7 +97,7 @@ functions:
     handler: add-education.main
     events:
       - http:
-          path: educations
+          path: educations/{user}
           method: post
           cors: true
           authorizer: aws_iam
@@ -144,6 +144,15 @@ functions:
       - http:
           path: experiences/{userid}
           method: get
+          cors: true
+          authorizer: aws_iam
+
+  search-users:
+    handler: search-users.main
+    events:
+      - http:
+          path: search
+          method: post
           cors: true
           authorizer: aws_iam
 
