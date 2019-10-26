@@ -5,6 +5,7 @@ module.exports.main = async (event, context, callback) => {
   // context.callbackWaitsForEmptyEventLoop = false;
 
   const data = JSON.parse(event.body);
+  console.log(data);
   // data.id = uuid();
   // db.insert("profiles", data)
   //   .then(res => {

@@ -66,6 +66,15 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  update-profile:
+    handler: update-profile.main
+    events:
+      - http:
+          path: profiles/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
+
   list-profiles:
     handler: list-profiles.main
     events:
