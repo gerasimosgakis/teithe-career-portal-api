@@ -75,6 +75,15 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  delete-profile:
+    handler: delete-profile.main
+    events:
+      - http:
+          path: profiles/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+
   list-profiles:
     handler: list-profiles.main
     events:
@@ -102,15 +111,6 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  add-education:
-    handler: add-education.main
-    events:
-      - http:
-          path: educations/{user}
-          method: post
-          cors: true
-          authorizer: aws_iam
-
   list-educations:
     handler: list-educations.main
     events:
@@ -135,6 +135,42 @@ functions:
       - http:
           path: experiences
           method: post
+          cors: true
+          authorizer: aws_iam
+
+  update-experience:
+    handler: update-experience.main
+    events:
+      - http:
+          path: experiences/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
+
+  delete-experience:
+    handler: delete-experience.main
+    events:
+      - http:
+          path: experiences/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+
+  add-education:
+    handler: add-education.main
+    events:
+      - http:
+          path: educations
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  update-education:
+    handler: update-education.main
+    events:
+      - http:
+          path: educations/{id}
+          method: put
           cors: true
           authorizer: aws_iam
 
