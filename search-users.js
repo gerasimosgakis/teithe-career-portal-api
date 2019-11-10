@@ -10,8 +10,8 @@ module.exports.main = async event => {
     skills,
     githubusername,
     current,
-    start_date,
-    end_date,
+    graduate_date_before,
+    graduate_date_after,
     school,
     degree
   } = data;
@@ -29,7 +29,7 @@ module.exports.main = async event => {
       AND (LOWER((ARRAY[profiles.skills]::text)) LIKE $5 OR $5 IS NULL)
       AND (LOWER(profiles.githubusername) LIKE $6 OR $6 IS NULL)
       AND (educations.current = $7 OR $7 IS NULL)
-      AND (educations.start_date <= $8 OR $8 IS NULL)
+      AND (educations.end_date <= $8 OR $8 IS NULL)
       AND (educations.end_date >= $9 OR $9 IS NULL)
       AND (LOWER(educations.school) LIKE $10 OR $10 IS NULL)
       AND (LOWER(educations.degree) LIKE $11 OR $11 IS NULL)
@@ -44,8 +44,8 @@ module.exports.main = async event => {
       skills ? `%${skills}%` : null,
       githubusername ? `%${githubusername}%` : null,
       current,
-      start_date,
-      end_date,
+      graduate_date_before,
+      graduate_date_after,
       school ? `%${school.toLowerCase()}%` : null,
       degree ? `%${degree}%` : null
     );
