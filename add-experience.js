@@ -9,7 +9,10 @@ module.exports.main = async event => {
     const result = await db.insert("experiences", data);
     return {
       statusCode: 200,
-      body: "Experience created!" + result
+      body: JSON.stringify({
+        message: "Experience created!" + result,
+        data
+      })
     };
   } catch (e) {
     return {

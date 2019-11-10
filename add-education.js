@@ -34,7 +34,10 @@ module.exports.main = async event => {
     const result = await db.insert("educations", data);
     return {
       statusCode: 200,
-      body: "Education created!" + result
+      body: JSON.stringify({
+        message: "Education created!" + result,
+        data
+      })
     };
   } catch (e) {
     return {

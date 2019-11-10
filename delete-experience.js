@@ -1,9 +1,30 @@
+// const db = require("./db_connect");
+
+// module.exports.main = async (event, context, callback) => {
+//   try {
+//     const result = await db.delete("experiences", event.pathParameters.id);
+//     return {
+//       statusCode: 200,
+//       body: JSON.stringify({
+//         message: "Experience deleted!" + result,
+//         id: event.pathParameters.id
+//       })
+//     };
+//   } catch (error) {
+//     return {
+//       statusCode: error.statusCode || 500,
+//       body: "Could not delete experience",
+//       error
+//     };
+//   }
+// };
+
 const db = require("./db_connect");
 
-module.exports.main = async (event, context, callback) => {
-  console.log(data, event.pathParameters.id);
+module.exports.main = async event => {
+  const sql = "DELETE from experiences where id = $1";¬
   try {
-    const result = await db.delete("experiences", event.pathParameters.id);
+    const result = await db.query(sql, event.pathParameters.id);
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -11,11 +32,10 @@ module.exports.main = async (event, context, callback) => {
         id: event.pathParameters.id
       })
     };
-  } catch (error) {
+  } catch (e) {
     return {
       statusCode: e.statusCode || 500,
-      body: "Could not delete experience",
-      error
+      body: "ERROR: Could not delete experience: " + e
     };
   }
 };
