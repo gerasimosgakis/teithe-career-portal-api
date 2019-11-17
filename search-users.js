@@ -16,7 +16,7 @@ module.exports.main = async event => {
     degree
   } = data;
 
-  console.log(`%${handle}%`);
+  console.log(`${handle}`);
   const sql = `
       SELECT *
       FROM profiles 
@@ -26,7 +26,7 @@ module.exports.main = async event => {
       AND (LOWER(profiles.handle) LIKE $2 OR $2 IS NULL)
       AND (LOWER(profiles.company) LIKE $3 OR $3 IS NULL)
       AND (LOWER(profiles.status) LIKE $4 OR $4 IS NULL)
-      AND (LOWER((ARRAY[profiles.skills]::text)) LIKE $5 OR $5 IS NULL)
+      AND (LOWER(profiles.skills) LIKE $5 OR $5 IS NULL)
       AND (LOWER(profiles.githubusername) LIKE $6 OR $6 IS NULL)
       AND (educations.current = $7 OR $7 IS NULL)
       AND (educations.end_date <= $8 OR $8 IS NULL)
