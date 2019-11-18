@@ -22,7 +22,7 @@
 const db = require("./db_connect");
 
 module.exports.main = async event => {
-  const sql = "DELETE from experiences where id = $1";¬
+  const sql = "DELETE from experiences where id = $1";
   try {
     const result = await db.query(sql, event.pathParameters.id);
     return {
