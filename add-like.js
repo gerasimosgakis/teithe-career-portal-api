@@ -44,17 +44,17 @@ module.exports.main = async (event, context, callback) => {
 
   try {
     const queryResult = await db.query(sqlCount, data.user_id);
-    console.log(queryResult[0].count);
+    console.log(parseInt(queryResult[0].count));
     try {
       const result =
-        queryResult[0].count <= 0
+        parseInt(queryResult[0].count) <= 0
           ? await db.insert("likes", data)
           : await db.query(sqlRemove, data.user_id);
       return {
         statusCode: 200,
         body: JSON.stringify({
           message: "Likes updated!" + result,
-          action: queryResult[0].count <= 0 ? "added" : "removed",
+          action: parseInt(queryResult[0].count) <= 0 ? "added" : "removed",
           data
         })
       };
