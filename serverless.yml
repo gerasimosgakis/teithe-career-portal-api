@@ -228,6 +228,15 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  add-like:
+    handler: add-like.main
+    events:
+      - http:
+          path: likes
+          method: post
+          cors: true
+          authorizer: aws_iam
+
 plugins:
   - serverless-offline
 #    The following are a few example events you can configure
