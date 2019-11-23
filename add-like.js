@@ -49,11 +49,12 @@ module.exports.main = async (event, context, callback) => {
       const result =
         queryResult[0].count <= 0
           ? await db.insert("likes", data)
-          : db.query(sqlRemove, data.user_id);
+          : await db.query(sqlRemove, data.user_id);
       return {
         statusCode: 200,
         body: JSON.stringify({
-          message: "Like added!" + result,
+          message: "Likes updated!" + result,
+          action: queryResult[0].count <= 0 ? "added" : "removed",
           data
         })
       };
