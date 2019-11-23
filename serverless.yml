@@ -210,6 +210,24 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  add-post:
+    handler: add-post.main
+    events:
+      - http:
+          path: posts
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  list-posts:
+    handler: list-posts.main
+    events:
+      - http:
+          path: posts
+          method: get
+          cors: true
+          authorizer: aws_iam
+
 plugins:
   - serverless-offline
 #    The following are a few example events you can configure
