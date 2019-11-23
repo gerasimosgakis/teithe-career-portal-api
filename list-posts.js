@@ -20,7 +20,7 @@ const db = require("./db_connect");
 
 module.exports.main = async () => {
   const sql = `
-  SELECT p.*, count(l.post_id) AS likes
+  SELECT p.*, CAST(COUNT(l.post_id) AS int) AS likes
   FROM posts p
   LEFT JOIN likes l
   ON p.id=l.post_id
