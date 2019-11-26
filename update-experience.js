@@ -1,6 +1,10 @@
 const db = require("./db_connect");
 
 module.exports.main = async (event, context, callback) => {
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": true
+  };
   const data = JSON.parse(event.body);
   try {
     const result = await db.updateById(
@@ -10,6 +14,7 @@ module.exports.main = async (event, context, callback) => {
     );
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify({
         message: "Experience updated!" + result,
         data
@@ -19,6 +24,7 @@ module.exports.main = async (event, context, callback) => {
     console.log(error);
     return {
       statusCode: error.statusCode || 500,
+      headers,
       body: "Could not update experience",
       error
     };

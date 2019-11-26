@@ -19,9 +19,30 @@ org: gerasimosgakis
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
 provider:
   name: aws
+  stage: dev
   runtime: nodejs10.x
+  region: us-east-1
+  vpc:
+    securityGroupIds:
+      - sg-911d0fce
+    subnetIds:
+      - subnet-69f2d935
+      - subnet-3d33cd70
+      - subnet-6220c06c
+      - subnet-31f3810f
+      - subnet-6e436d09
+      - subnet-60d5e04e
 
 # you can overwrite defaults here
 #  stage: dev
@@ -64,7 +85,6 @@ functions:
           path: profiles
           method: post
           cors: true
-          authorizer: aws_iam
 
   update-profile:
     handler: update-profile.main
@@ -73,16 +93,14 @@ functions:
           path: profiles/{id}
           method: put
           cors: true
-          authorizer: aws_iam
 
   delete-profile:
     handler: delete-profile.main
     events:
       - http:
-          path: profiles/{id}
+          path: profiles/delete/{id}
           method: delete
           cors: true
-          authorizer: aws_iam
 
   list-profiles:
     handler: list-profiles.main
@@ -91,16 +109,14 @@ functions:
           path: profiles
           method: get
           cors: true
-          authorizer: aws_iam
 
   get-profile-by-id:
     handler: get-profile-by-id.main
     events:
       - http:
-          path: profiles/{id}
+          path: profile/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
   get-profile-by-handle:
     handler: get-profile-by-handle.main
@@ -109,7 +125,6 @@ functions:
           path: profiles/handle/{handle}
           method: get
           cors: true
-          authorizer: aws_iam
 
   list-educations:
     handler: list-educations.main
@@ -118,7 +133,6 @@ functions:
           path: educations
           method: get
           cors: true
-          authorizer: aws_iam
 
   get-education-by-user:
     handler: get-education-by-user.main
@@ -127,7 +141,6 @@ functions:
           path: educations/{userid}
           method: get
           cors: true
-          authorizer: aws_iam
 
   add-experience:
     handler: add-experience.main
@@ -136,25 +149,22 @@ functions:
           path: experiences
           method: post
           cors: true
-          authorizer: aws_iam
 
   update-experience:
     handler: update-experience.main
     events:
       - http:
-          path: experiences/{id}
+          path: experiences/update/{id}
           method: put
           cors: true
-          authorizer: aws_iam
 
   delete-experience:
     handler: delete-experience.main
     events:
       - http:
-          path: experiences/{id}
+          path: experiences/delete/{id}
           method: delete
           cors: true
-          authorizer: aws_iam
 
   add-education:
     handler: add-education.main
@@ -163,25 +173,22 @@ functions:
           path: educations
           method: post
           cors: true
-          authorizer: aws_iam
 
   update-education:
     handler: update-education.main
     events:
       - http:
-          path: educations/{id}
+          path: educations/update/{id}
           method: put
           cors: true
-          authorizer: aws_iam
 
   delete-education:
     handler: delete-education.main
     events:
       - http:
-          path: educations/{id}
+          path: educations/delete/{id}
           method: delete
           cors: true
-          authorizer: aws_iam
 
   list-experiences:
     handler: list-experiences.main
@@ -190,7 +197,6 @@ functions:
           path: experiences
           method: get
           cors: true
-          authorizer: aws_iam
 
   get-experience-by-user:
     handler: get-experience-by-user.main
@@ -199,7 +205,6 @@ functions:
           path: experiences/{userid}
           method: get
           cors: true
-          authorizer: aws_iam
 
   search-users:
     handler: search-users.main
@@ -208,7 +213,6 @@ functions:
           path: search
           method: post
           cors: true
-          authorizer: aws_iam
 
   add-post:
     handler: add-post.main
@@ -217,7 +221,6 @@ functions:
           path: posts
           method: post
           cors: true
-          authorizer: aws_iam
 
   list-posts:
     handler: list-posts.main
@@ -226,7 +229,6 @@ functions:
           path: posts
           method: get
           cors: true
-          authorizer: aws_iam
 
   add-like:
     handler: add-like.main
@@ -235,10 +237,24 @@ functions:
           path: likes
           method: post
           cors: true
-          authorizer: aws_iam
 
-plugins:
-  - serverless-offline
+resources:
+  Resources:
+    AWSLambdaVPCAccessExecutionRole:
+      Type: AWS::IAM::ManagedPolicy
+      Properties:
+        Description: Creating policy for vpc connetion.
+        Roles:
+          - { "Ref": "IamRoleLambdaExecution" }
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - ec2:CreateNetworkInterface
+                - ec2:DescribeNetworkInterfaces
+                - ec2:DeleteNetworkInterface
+              Resource: "*"
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

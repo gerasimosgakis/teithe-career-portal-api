@@ -1,6 +1,10 @@
 const db = require("./db_connect");
 
 module.exports.main = async event => {
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": true
+  };
   const data = JSON.parse(event.body);
   const { postId } = data;
 
@@ -25,11 +29,13 @@ module.exports.main = async event => {
     );
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify(result)
     };
   } catch (e) {
     return {
       statusCode: e.statusCode || 500,
+      headers,
       body: "ERROR: Could not find users: " + e
     };
   }

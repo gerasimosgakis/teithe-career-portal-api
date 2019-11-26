@@ -1,0 +1,8 @@
+{
+  "body": "{\"user_id\":\"1234-64534535-756474564-5344\",\"text\":\"hello\"}",
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}

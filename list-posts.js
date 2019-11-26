@@ -19,6 +19,11 @@
 const db = require("./db_connect");
 
 module.exports.main = async () => {
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": true
+  };
+
   const sql = `
   SELECT p.*, CAST(COUNT(l.post_id) AS int) AS likes
   FROM posts p
@@ -31,11 +36,13 @@ module.exports.main = async () => {
     const result = await db.query(sql);
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify(result)
     };
   } catch (e) {
     return {
       statusCode: e.statusCode || 500,
+      headers,
       body: "ERROR: Could not find posts: " + e
     };
   }
