@@ -238,6 +238,22 @@ functions:
           method: post
           cors: true
 
+  add-fav-job:
+    handler: add-fav-job.main
+    events:
+      - http:
+          path: favorite-job
+          method: post
+          cors: true
+
+  list-fav-jobs:
+    handler: list-fav-jobs.main
+    events:
+      - http:
+          path: favorite-jobs/{userid}
+          method: get
+          cors: true
+
 resources:
   Resources:
     AWSLambdaVPCAccessExecutionRole:
