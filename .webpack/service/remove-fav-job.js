@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./list-fav-jobs.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./remove-fav-job.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -117,10 +117,10 @@ module.exports = pg;
 
 /***/ }),
 
-/***/ "./list-fav-jobs.js":
-/*!**************************!*\
-  !*** ./list-fav-jobs.js ***!
-  \**************************/
+/***/ "./remove-fav-job.js":
+/*!***************************!*\
+  !*** ./remove-fav-job.js ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -131,30 +131,22 @@ module.exports.main = async event => {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true
   };
-
-  // const sql = `
-  // SELECT p.*, CAST(COUNT(l.post_id) AS int) AS likes
-  // FROM posts p
-  // LEFT JOIN likes l
-  // ON p.id=l.post_id
-  // GROUP BY p.id, l.post_id
-  // ORDER BY p.created_at DESC
-  // `;
-
-  const sql = `select job_id from fav_jobs where user_id = $1`;
-
+  const sql = "DELETE from fav_jobs where job_id = $1";
   try {
-    const result = await db.query(sql, event.pathParameters.userid);
+    const result = await db.query(sql, event.pathParameters.jobid);
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(result)
+      body: JSON.stringify({
+        message: "Job removed!" + result,
+        id: event.pathParameters.id
+      })
     };
   } catch (e) {
     return {
       statusCode: e.statusCode || 500,
       headers,
-      body: "ERROR: Could not find jobs: " + e
+      body: "ERROR: Could not remove job: " + e
     };
   }
 };
@@ -173,4 +165,4 @@ module.exports = require("postgresql-easy");
 /***/ })
 
 /******/ })));
-//# sourceMappingURL=list-fav-jobs.js.map
+//# sourceMappingURL=remove-fav-job.js.map

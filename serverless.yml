@@ -254,6 +254,14 @@ functions:
           method: get
           cors: true
 
+  remove-fav-job:
+    handler: remove-fav-job.main
+    events:
+      - http:
+          path: favorite-jobs/remove/{jobid}
+          method: delete
+          cors: true
+
 resources:
   Resources:
     AWSLambdaVPCAccessExecutionRole:

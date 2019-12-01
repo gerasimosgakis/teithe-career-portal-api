@@ -15,7 +15,7 @@ module.exports.main = async event => {
   // ORDER BY p.created_at DESC
   // `;
 
-  const sql = `select * from fav_jobs where user_id = $1`;
+  const sql = `select job_id from fav_jobs where user_id = $1`;
 
   try {
     const result = await db.query(sql, event.pathParameters.userid);
