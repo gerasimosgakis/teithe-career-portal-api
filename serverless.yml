@@ -262,6 +262,14 @@ functions:
           method: delete
           cors: true
 
+  add-cv:
+    handler: add-cv.main
+    events:
+      - http:
+          path: add-cv/{userid}
+          method: put
+          cors: true
+
 resources:
   Resources:
     AWSLambdaVPCAccessExecutionRole:
