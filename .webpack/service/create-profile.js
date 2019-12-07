@@ -153,7 +153,7 @@ module.exports.main = async (event, context, callback) => {
     return {
       statusCode: 200,
       headers,
-      body: "Profile created!" + result
+      body: JSON.stringify({ result, data })
     };
   } catch (e) {
     return {
