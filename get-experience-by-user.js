@@ -5,7 +5,11 @@ module.exports.main = async event => {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true
   };
-  const sql = "select * from experiences where user_id = $1";
+  const sql = `
+  SELECT * 
+  FROM experiences
+  WHERE user_id = $1
+  ORDER BY end_date DESC`;
   try {
     const result = await db.query(sql, event.pathParameters.userid);
     return {
