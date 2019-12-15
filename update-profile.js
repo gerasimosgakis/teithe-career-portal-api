@@ -1,12 +1,11 @@
 const db = require("./db_connect");
 
-module.exports.main = async (event, context, callback) => {
+module.exports.main = async event => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true
   };
   const data = JSON.parse(event.body);
-  console.log(data, event.pathParameters.id);
   try {
     const result = await db.updateById(
       "profiles",

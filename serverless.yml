@@ -120,22 +120,6 @@ functions:
           method: get
           cors: true
 
-  # get-profile-by-handle:
-  #   handler: get-profile-by-handle.main
-  #   events:
-  #     - http:
-  #         path: profiles/handle/{handle}
-  #         method: get
-  #         cors: true
-
-  # list-educations:
-  #   handler: list-educations.main
-  #   events:
-  #     - http:
-  #         path: educations
-  #         method: get
-  #         cors: true
-
   get-education-by-user:
     handler: get-education-by-user.main
     events:
@@ -191,14 +175,6 @@ functions:
           path: educations/delete/{id}
           method: delete
           cors: true
-
-  # list-experiences:
-  #   handler: list-experiences.main
-  #   events:
-  #     - http:
-  #         path: experiences
-  #         method: get
-  #         cors: true
 
   get-experience-by-user:
     handler: get-experience-by-user.main
