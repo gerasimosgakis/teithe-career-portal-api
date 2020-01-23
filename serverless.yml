@@ -142,55 +142,55 @@ functions:
           method: post
           cors: true
 
-  # add-post:
-  #   handler: add-post.main
-  #   events:
-  #     - http:
-  #         path: posts
-  #         method: post
-  #         cors: true
-  # list-posts:
-  #   handler: list-posts.main
-  #   events:
-  #     - http:
-  #         path: posts
-  #         method: get
-  #         cors: true
-  # add-like:
-  #   handler: add-like.main
-  #   events:
-  #     - http:
-  #         path: likes
-  #         method: post
-  #         cors: true
-  # add-fav-job:
-  #   handler: add-fav-job.main
-  #   events:
-  #     - http:
-  #         path: favorite-job
-  #         method: post
-  #         cors: true
-  # list-fav-jobs:
-  #   handler: list-fav-jobs.main
-  #   events:
-  #     - http:
-  #         path: favorite-jobs/{userid}
-  #         method: get
-  #         cors: true
-  # remove-fav-job:
-  #   handler: remove-fav-job.main
-  #   events:
-  #     - http:
-  #         path: favorite-jobs/remove/{jobid}
-  #         method: delete
-  #         cors: true
-  # add-cv:
-  #   handler: add-cv.main
-  #   events:
-  #     - http:
-  #         path: add-cv/{userid}
-  #         method: put
-  #         cors: true
+  add-post:
+    handler: add-post.main
+    events:
+      - http:
+          path: posts
+          method: post
+          cors: true
+  list-posts:
+    handler: list-posts.main
+    events:
+      - http:
+          path: posts
+          method: get
+          cors: true
+  add-like:
+    handler: add-like.main
+    events:
+      - http:
+          path: likes
+          method: post
+          cors: true
+  add-fav-job:
+    handler: add-fav-job.main
+    events:
+      - http:
+          path: favorite-job
+          method: post
+          cors: true
+  list-fav-jobs:
+    handler: list-fav-jobs.main
+    events:
+      - http:
+          path: favorite-jobs/{userid}
+          method: get
+          cors: true
+  remove-fav-job:
+    handler: remove-fav-job.main
+    events:
+      - http:
+          path: favorite-jobs/remove/{jobid}
+          method: delete
+          cors: true
+  add-cv:
+    handler: add-cv.main
+    events:
+      - http:
+          path: add-cv/{userid}
+          method: put
+          cors: true
 
 resources:
   Resources:
