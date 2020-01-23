@@ -22,21 +22,6 @@ to connect, create a profile with all their credentials and information, communi
 
 ---
 
-## Example (Optional)
-
-```javascript
-// code away!
-
-let generateProject = project => {
-  let code = [];
-  for (let js = 0; js < project.length; js++) {
-    code.push(js);
-  }
-};
-```
-
----
-
 ## Installation
 
 ```npm i -g serverless```
@@ -47,30 +32,20 @@ let generateProject = project => {
 
 ### Setup
 
-```shell
-$ cd teithe-career-portal-api
-$ npm i
-$ serverless offline
-```
-
-> update and install this package first
-
-```shell
-$ brew update
-$ brew install fvcproductions
-```
-3. **Create a Service:**
-
-You can create a new service or [install existing services](#how-to-install-a-service).
-
 ```bash
-# Create a new Serverless Service/Project
-serverless create --template aws-nodejs --path my-service
-# Change into the newly created directory
-cd my-service
+# Change into the api directory
+cd teithe-career-portal-api
+# Install packages
+npm install
+```
+### Use Services
+1. **Run all the services offline**
+```bash
+# Run serverless offline
+serverless offline
 ```
 
-4. **Deploy a Service:**
+2. **Deploy the Service:**
 
 Use this when you have made changes to your Functions, Events or Resources in `serverless.yml` or you simply want to deploy all changes within your Service at the same time.
 
@@ -78,7 +53,7 @@ Use this when you have made changes to your Functions, Events or Resources in `s
 serverless deploy -v
 ```
 
-5. **Deploy the Function:**
+3. **Deploy a Function:**
 
 Use this to quickly upload and overwrite your AWS Lambda code on AWS, allowing you to develop faster.
 
@@ -86,7 +61,7 @@ Use this to quickly upload and overwrite your AWS Lambda code on AWS, allowing y
 serverless deploy function -f hello
 ```
 
-6. **Invoke the Function on AWS:**
+4. **Invoke the Function on AWS:**
 
 Invokes an AWS Lambda Function on AWS and returns logs.
 
@@ -94,7 +69,7 @@ Invokes an AWS Lambda Function on AWS and returns logs.
 serverless invoke -f hello -l
 ```
 
-7. **Invoke the Function on your machine:**
+5. **Invoke the Function on your machine:**
 
 Invokes an AWS Lambda Function on your local machine and returns logs.
 
@@ -118,19 +93,9 @@ Removes all Functions, Events and Resources from your AWS account.
 serverless remove
 ```
 
-### How to Install a Service:
+### Functions
 
-This is a convenience method to install a pre-made Serverless Service locally by downloading the Github repo and unzipping it. Services are listed below.
-
-```bash
-serverless install -u https://github.com/your-url-to-the-serverless-service
-```
-
-Check out the [Serverless Framework Guide](./docs/providers/aws/guide/README.md) for more information.
-
-## <a name="services"></a>Services (V1.0)
-
-The following are services you can instantly install and use by running `serverless install --url <service-github-url>`
+These are all the currently available services
 
 - [serverless-examples](https://github.com/serverless/examples)
 - [CRUD](https://github.com/pmuens/serverless-crud) - CRUD service, [Scala Port](https://github.com/jahangirmohammed/serverless-crud-scala)
