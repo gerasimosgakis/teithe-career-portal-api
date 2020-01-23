@@ -5,18 +5,22 @@ module.exports.main = async event => {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true
   };
+  const sql = "DELETE from educations where id = $1";
   try {
-    const result = await db.getById("profiles", event.pathParameters.id);
+    const result = await db.query(sql, event.pathParameters.id);
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(result)
+      body: JSON.stringify({
+        message: "Education deleted!" + result,
+        id: event.pathParameters.id
+      })
     };
   } catch (e) {
     return {
       statusCode: e.statusCode || 500,
       headers,
-      body: "ERROR: Could not find profile: " + e
+      body: "ERROR: Could not delete education: " + e
     };
   }
 };

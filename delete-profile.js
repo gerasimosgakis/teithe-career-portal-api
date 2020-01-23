@@ -1,29 +1,26 @@
 const db = require("./db_connect");
-const uuid = require("uuid/v1");
 
-module.exports.main = async event => {
+module.exports.main = async (event, context, callback) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true
   };
-  const data = JSON.parse(event.body);
-  data.id = uuid();
-
   try {
-    const result = await db.insert("experiences", data);
+    const result = await db.delete("profiles", event.pathParameters.id);
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
-        message: "Experience created!" + result,
-        data
+        message: "Profile deleted!" + result,
+        id: event.pathParameters.id
       })
     };
-  } catch (e) {
+  } catch (error) {
     return {
       statusCode: e.statusCode || 500,
       headers,
-      body: "Could not create experience " + e
+      body: "Could not delete profile",
+      error
     };
   }
 };

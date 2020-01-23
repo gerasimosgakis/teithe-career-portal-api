@@ -1,60 +1,33 @@
-# Welcome to Serverless!
-#
-# This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
-#
-# For full config options, check the docs:
-#    docs.serverless.com
-#
-# Happy Coding!
-
 service: teithe-career-portal-api
 app: teithe-career-portal-api
 org: gerasimosgakis
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  serverless-offline:
+    port: 3001
 
 provider:
   name: aws
+  stage: dev
   runtime: nodejs10.x
-
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
-
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
+  region: us-east-1
+  vpc:
+    securityGroupIds:
+      - sg-911d0fce
+    subnetIds:
+      - subnet-69f2d935
+      - subnet-3d33cd70
+      - subnet-6220c06c
+      - subnet-31f3810f
+      - subnet-6e436d09
+      - subnet-60d5e04e
 
 functions:
   create-profile:
@@ -64,7 +37,22 @@ functions:
           path: profiles
           method: post
           cors: true
-          authorizer: aws_iam
+
+  update-profile:
+    handler: update-profile.main
+    events:
+      - http:
+          path: profiles/{id}
+          method: put
+          cors: true
+
+  delete-profile:
+    handler: delete-profile.main
+    events:
+      - http:
+          path: profiles/delete/{id}
+          method: delete
+          cors: true
 
   list-profiles:
     handler: list-profiles.main
@@ -73,43 +61,14 @@ functions:
           path: profiles
           method: get
           cors: true
-          authorizer: aws_iam
 
   get-profile-by-id:
     handler: get-profile-by-id.main
     events:
       - http:
-          path: profiles/{id}
+          path: profile/{id}
           method: get
           cors: true
-          authorizer: aws_iam
-
-  get-profile-by-handle:
-    handler: get-profile-by-handle.main
-    events:
-      - http:
-          path: profiles/handle/{handle}
-          method: get
-          cors: true
-          authorizer: aws_iam
-
-  add-education:
-    handler: add-education.main
-    events:
-      - http:
-          path: educations
-          method: post
-          cors: true
-          authorizer: aws_iam
-
-  list-educations:
-    handler: list-educations.main
-    events:
-      - http:
-          path: educations
-          method: get
-          cors: true
-          authorizer: aws_iam
 
   get-education-by-user:
     handler: get-education-by-user.main
@@ -118,7 +77,6 @@ functions:
           path: educations/{userid}
           method: get
           cors: true
-          authorizer: aws_iam
 
   add-experience:
     handler: add-experience.main
@@ -127,16 +85,46 @@ functions:
           path: experiences
           method: post
           cors: true
-          authorizer: aws_iam
 
-  list-experiences:
-    handler: list-experiences.main
+  update-experience:
+    handler: update-experience.main
     events:
       - http:
-          path: experiences
-          method: get
+          path: experiences/update/{id}
+          method: put
           cors: true
-          authorizer: aws_iam
+
+  delete-experience:
+    handler: delete-experience.main
+    events:
+      - http:
+          path: experiences/delete/{id}
+          method: delete
+          cors: true
+
+  add-education:
+    handler: add-education.main
+    events:
+      - http:
+          path: educations
+          method: post
+          cors: true
+
+  update-education:
+    handler: update-education.main
+    events:
+      - http:
+          path: educations/update/{id}
+          method: put
+          cors: true
+
+  delete-education:
+    handler: delete-education.main
+    events:
+      - http:
+          path: educations/delete/{id}
+          method: delete
+          cors: true
 
   get-experience-by-user:
     handler: get-experience-by-user.main
@@ -145,58 +133,79 @@ functions:
           path: experiences/{userid}
           method: get
           cors: true
-          authorizer: aws_iam
 
-plugins:
-  - serverless-offline
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
-#      - websocket: $connect
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
-#      - alb:
-#          listenerArn: arn:aws:elasticloadbalancing:us-east-1:XXXXXX:listener/app/my-load-balancer/50dc6c495c0c9188/
-#          priority: 1
-#          conditions:
-#            host: example.com
-#            path: /hello
+  search-users:
+    handler: search-users.main
+    events:
+      - http:
+          path: search
+          method: post
+          cors: true
 
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
+  add-post:
+    handler: add-post.main
+    events:
+      - http:
+          path: posts
+          method: post
+          cors: true
+  list-posts:
+    handler: list-posts.main
+    events:
+      - http:
+          path: posts
+          method: get
+          cors: true
+  add-like:
+    handler: add-like.main
+    events:
+      - http:
+          path: likes
+          method: post
+          cors: true
+  add-fav-job:
+    handler: add-fav-job.main
+    events:
+      - http:
+          path: favorite-job
+          method: post
+          cors: true
+  list-fav-jobs:
+    handler: list-fav-jobs.main
+    events:
+      - http:
+          path: favorite-jobs/{userid}
+          method: get
+          cors: true
+  remove-fav-job:
+    handler: remove-fav-job.main
+    events:
+      - http:
+          path: favorite-jobs/remove/{jobid}
+          method: delete
+          cors: true
+  add-cv:
+    handler: add-cv.main
+    events:
+      - http:
+          path: add-cv/{userid}
+          method: put
+          cors: true
 
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+resources:
+  Resources:
+    AWSLambdaVPCAccessExecutionRole:
+      Type: AWS::IAM::ManagedPolicy
+      Properties:
+        Description: Creating policy for vpc connetion.
+        Roles:
+          - { "Ref": "IamRoleLambdaExecution" }
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - ec2:CreateNetworkInterface
+                - ec2:DescribeNetworkInterfaces
+                - ec2:DeleteNetworkInterface
+              Resource: "*"

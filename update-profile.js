@@ -5,18 +5,27 @@ module.exports.main = async event => {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true
   };
+  const data = JSON.parse(event.body);
   try {
-    const result = await db.getById("profiles", event.pathParameters.id);
+    const result = await db.updateById(
+      "profiles",
+      event.pathParameters.id,
+      data
+    );
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(result)
+      body: JSON.stringify({
+        message: "Profile updated!" + result,
+        data
+      })
     };
-  } catch (e) {
+  } catch (error) {
     return {
       statusCode: e.statusCode || 500,
       headers,
-      body: "ERROR: Could not find profile: " + e
+      body: "Could not update profile",
+      error
     };
   }
 };
