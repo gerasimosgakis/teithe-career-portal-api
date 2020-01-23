@@ -132,13 +132,7 @@ module.exports.main = async event => {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {
-  database: "postgres",
-  host: "teithe-career-portal.cpss7xpeviml.us-east-1.rds.amazonaws.com",
-  port: "5432",
-  user: "master",
-  password: "Passw0rd!"
-};
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/gerasimosgakis/Documents/thesis-2019/teithe-career-portal/teithe-career-portal-api/config/db.js'");
 
 /***/ }),
 
