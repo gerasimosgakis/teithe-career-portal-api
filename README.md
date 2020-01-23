@@ -14,6 +14,9 @@ to connect, create a profile with all their credentials and information, communi
 - [Installation](#installation)
 - [Features](#features)
 - [Contributing](#contributing)
+- [Team](#team)
+- [FAQ](#faq)
+- [Support](#support)
 - [License](#license)
 
 
@@ -74,7 +77,7 @@ Invokes an AWS Lambda Function on your local machine and returns logs.
 serverless invoke local -f hello -l
 ```
 
-6. **Fetch the Function Logs:**
+8. **Fetch the Function Logs:**
 
 Open up a separate tab in your console and stream all logs for a specific Function using this command.
 
@@ -82,7 +85,7 @@ Open up a separate tab in your console and stream all logs for a specific Functi
 serverless logs -f hello -t
 ```
 
-7. **Remove the Service:**
+9. **Remove the Service:**
 
 Removes all Functions, Events and Resources from your AWS account.
 
@@ -110,16 +113,6 @@ These are all the currently available services
 - **Search Users** - *method*: POST, *path*: /search, *body*: search parameters object (name, handle, company, status, skills, githubusername, current, graduate_date_before, graduate_date_after, school, degree)
 
 **Note**: the `serverless install` command will only work on V1.0 or later.
----
-
-## Features
-## Usage (Optional)
-## Documentation (Optional)
-## Tests (Optional)
-
-- Going into more detail on code and technologies used
-- I utilized this nifty <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a> for this sample `README`.
-
 ---
 
 ## Contributing
