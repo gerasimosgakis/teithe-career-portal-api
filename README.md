@@ -111,8 +111,11 @@ These are all the currently available services
 - **Delete Experience** - *method*: DELETE, *path*: /experiences/delete/{id}
 - **Get Experience By User** - *method*: GET, *path*: /experiences/{userid}
 - **Search Users** - *method*: POST, *path*: /search, *body*: search parameters object (name, handle, company, status, skills, githubusername, current, graduate_date_before, graduate_date_after, school, degree)
+- **Add Favourite Job** - *method*: POST, *path*: /favorite-job, *body*: data object (including user id)
+- **List Favourite Jobs** - *method*: GET, *path*: /favorite-jobs/{userid}, *body*: data object
+- **Remove Favourite Job** - *method*: DELETE, *path*: /favorite-jobs/remove/{jobid}
+- **Add CV** - *method*: PUT, *path*: /add-cv/{userid}, *body*: data object
 
-**Note**: the `serverless install` command will only work on V1.0 or later.
 ---
 
 ## Contributing
