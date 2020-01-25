@@ -124,27 +124,6 @@ module.exports = pg;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-// const db = require("./db_connect");
-
-// module.exports.main = async (event, context, callback) => {
-//   try {
-//     const result = await db.delete("experiences", event.pathParameters.id);
-//     return {
-//       statusCode: 200,
-//       body: JSON.stringify({
-//         message: "Experience deleted!" + result,
-//         id: event.pathParameters.id
-//       })
-//     };
-//   } catch (error) {
-//     return {
-//       statusCode: error.statusCode || 500,
-//       body: "Could not delete experience",
-//       error
-//     };
-//   }
-// };
-
 const db = __webpack_require__(/*! ./db_connect */ "./db_connect.js");
 
 module.exports.main = async event => {
