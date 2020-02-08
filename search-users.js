@@ -63,7 +63,7 @@ module.exports.main = async event => {
       graduate_date_before,
       graduate_date_after,
       school ? `%${school.toLowerCase()}%` : null,
-      degree ? `%${degree}%` : null
+      degree ? `%${degree.toLowerCase()}%` : null
     );
     return {
       statusCode: 200,
