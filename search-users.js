@@ -23,6 +23,7 @@ module.exports.main = async event => {
   const sql = `
       SELECT DISTINCT profiles.id,
       profiles.name,
+      profiles.email,
       profiles.handle,
       profiles.avatar,
       profiles.company,
